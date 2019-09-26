@@ -65,7 +65,7 @@ public class APIExceptionsHandler extends ResponseEntityExceptionHandler {
 	public String handleEmptyResultDataAccessException(EmptyResultDataAccessException ex) {
 		return ex.getMessage()
 				.replace(
-						"class com.mguillen.library.domain.",
+						"class com.mguillen.beers.domain.",
 						""
 				);
 	}
