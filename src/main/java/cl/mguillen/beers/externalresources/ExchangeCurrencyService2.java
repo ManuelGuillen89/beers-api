@@ -3,6 +3,7 @@ package cl.mguillen.beers.externalresources;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -32,8 +33,11 @@ import java.util.Set;
 @Slf4j
 public class ExchangeCurrencyService2 {
 
-	private static final String URL_RATES = "https://api.exchangerate-api.com/v4/latest/";
-	private static final String FILENAME_SUPORTED_CURRENCIES = "supportedcurrency.txt";
+	@Value("${endpoint.api.exchangerate}")
+	private static String URL_RATES;
+
+	@Value("${filename.suportedcurrency}")
+	private static String FILENAME_SUPORTED_CURRENCIES;
 
 	private final RestTemplate restTemplate = new RestTemplate();
 

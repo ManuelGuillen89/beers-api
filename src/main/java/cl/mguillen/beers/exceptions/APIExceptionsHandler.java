@@ -1,6 +1,7 @@
 package cl.mguillen.beers.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class APIExceptionsHandler extends ResponseEntityExceptionHandler {
 
+	@Value("${domain.package.name.to.handle.exceptions}")
+	private static String DOMAIN_PACKAGE_NAME;
 
 	/**
 	 * Maneja respuesta de EntityIDNotFoundException creada especificamente para esta
@@ -65,7 +68,7 @@ public class APIExceptionsHandler extends ResponseEntityExceptionHandler {
 	public String handleEmptyResultDataAccessException(EmptyResultDataAccessException ex) {
 		return ex.getMessage()
 				.replace(
-						"class com.mguillen.beers.domain.",
+						"class "+DOMAIN_PACKAGE_NAME+".",
 						""
 				);
 	}
