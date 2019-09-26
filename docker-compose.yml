@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  mysql-docker-container:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=beersdb
+      - MYSQL_USER=appuser
+      - MYSQL_PASSWORD=test123
+    volumes:
+      - /data/mysql
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  spring-boot-jpa-app:
+    image: beer-api-spring-boot
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      mysql-docker-container:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    volumes:
+      - /data/beer-api-spring-boot
