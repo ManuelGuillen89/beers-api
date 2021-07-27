@@ -36,7 +36,7 @@ public class ExchangeCurrencyService2 {
 	@Value("${endpoint.api.exchangerate}")
 	private static String URL_RATES;
 
-	@Value("${filename.suportedcurrency}")
+	@Value("${filename.supportedcurrency}")
 	private static String FILENAME_SUPORTED_CURRENCIES;
 
 	private final RestTemplate restTemplate = new RestTemplate();
